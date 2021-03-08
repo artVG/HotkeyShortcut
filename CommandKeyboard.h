@@ -1,16 +1,32 @@
 #pragma once
-#include "InputCommand.h"
-#include <string>
+#include "AbstractFunction.h"
 #include <map>
+#include <memory>
 
-#define KEYBOARD_SIZE 255
-
+/// <summary>
+/// Container for all functions
+/// </summary>
 class CommandKeyboard
 {
 public:
-	void insert(const InputCommand& command, const int& at);
+	/// <summary>
+	/// Add new hotkey function to container. Function must have unique keybind.
+	/// If key already exists in the container new will not be added
+	/// </summary>
+	/// <param name="command">Function to add</param>
+	/// <param name="at">Key bind</param>
+	void insert(const std::shared_ptr<AbstractFunction> command, const int& at);
+
+	/// <summary>
+	/// Execute function on key
+	/// </summary>
+	/// <param name="key">Key bind</param>
 	void run(const int& key) const;
 private:
-	std::map<int, InputCommand> keyboard;
+
+	/// <summary>
+	/// Container for all keys with binded functions
+	/// </summary>
+	std::map<int, std::shared_ptr<AbstractFunction>> keyboard;
 };
 

@@ -1,9 +1,14 @@
 #include "CommandKeyboard.h"
 
 
-void CommandKeyboard::insert(const InputCommand& command, const int& at)
+
+void CommandKeyboard::insert(const std::shared_ptr<AbstractFunction> command, const int& at)
 {
-    keyboard.insert(std::pair<int, InputCommand>(at, command));
+    auto element = keyboard.find(at);
+    if (element == keyboard.end())
+    {
+        keyboard.insert(std::pair<int, std::shared_ptr<AbstractFunction>>(at, command));
+    }
 }
 
 void CommandKeyboard::run(const int& key) const
@@ -11,9 +16,7 @@ void CommandKeyboard::run(const int& key) const
     auto element = keyboard.find(key);
     if (element != keyboard.end())
     {
-        if (keyboard.find(key)->second.isSet())
-        {
-            keyboard.find(key)->second.run();
-        }
+        
+        keyboard.find(key)->second->run();
     }
 }
