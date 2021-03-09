@@ -4,8 +4,9 @@
 
 App::App(HOOKPROC hkp, const std::wstring& configFile)
 {
+    std::wstring path = getExePath();
 	// generate keyboard
-	keyboard = Configurator::generateKeyboard(configFile);
+	keyboard = Configurator::generateKeyboard(path + L"\\" + configFile);
 
     // register ALT+F11 combination to enable hotkey mod
     if (!RegisterHotKey(NULL, 1, MOD_ALT | MOD_NOREPEAT, VK_F11))
@@ -71,4 +72,16 @@ void App::run()
             waitingForHK = true;
         }
     }
+}
+
+std::wstring App::getExePath()
+{
+    // allocate buffer
+    TCHAR buffer[MAX_PATH] = { 0 };
+    // get full exe file name
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    // get last occurence of (/) path delimiter
+    size_t pos = std::wstring(buffer).find_last_of(L"\\/");
+    // return path
+    return std::wstring(buffer).substr(0, pos);
 }

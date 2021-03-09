@@ -33,6 +33,12 @@ public:
 private:
 
 	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns>path of exe file</returns>
+	std::wstring getExePath();
+
+	/// <summary>
 	/// keyboard hook
 	/// </summary>
 	HHOOK keyHook;
