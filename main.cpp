@@ -2,7 +2,7 @@
 
 // тут КСТЫЛЬ нужно сделать, чтоб этот ваил брался всегда из хомяка.
 // на данный момент нужен точный адрес
-const std::wstring configAddress = L"hkConfig.txt";
+const std::wstring configAddress = L"C:\\Users\\lifea\\OneDrive\\Documents\\hkConfig.txt";
 
 LRESULT CALLBACK LowLevelKeyboardProc(_In_ int code, _In_ WPARAM wParam, _In_ LPARAM lParam);
 App* app;

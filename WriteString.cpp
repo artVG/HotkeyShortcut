@@ -8,10 +8,14 @@ void WriteString::run()
 
 bool WriteString::build(const std::wstring& data)
 {
+    //https://docs.microsoft.com/en-gb/windows/win32/api/winuser/nf-winuser-sendinput?redirectedfrom=MSDN
+    // id data is not empty
     if (data.size() > 0)
     {
+        // for each char in user input string
         for (auto ch = data.begin(); ch < data.end(); ch++)
         {
+            // add key press event
             INPUT inputDown;
             inputDown.type = INPUT_KEYBOARD;
             inputDown.ki.wVk = 0;
@@ -21,6 +25,7 @@ bool WriteString::build(const std::wstring& data)
             inputDown.ki.dwExtraInfo = 0;
             inputs.push_back(inputDown);
 
+            // add key release event
             INPUT inputUp;
             inputUp.type = INPUT_KEYBOARD;
             inputUp.ki.wVk = 0;
@@ -31,5 +36,6 @@ bool WriteString::build(const std::wstring& data)
             inputs.push_back(inputUp);
         }
     }
+    // true if inputs vector has key events
     return inputs.size() > 0;
 }
